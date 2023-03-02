@@ -1,1 +1,1 @@
-# minesweeper
+npm install >> npm start
