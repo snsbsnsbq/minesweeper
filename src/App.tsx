@@ -74,7 +74,8 @@ function App() {
         }
       }
     }
-    setFlagCount(minesCount - count);
+    !isLosing && setFlagCount(minesCount - count);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [field]);
 
   useEffect(() => {
