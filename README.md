@@ -1,1 +1,6 @@
-npm install >> npm start
+**Установка пакетов и запуск приложения**
+1. npm install
+2. npm start
+
+**Зависимости**
+1. NodeJS >=v16.0
