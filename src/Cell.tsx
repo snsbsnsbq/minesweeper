@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { NumberKeys, SmileType } from "./types";
+import { Coords, FieldType, NumberKeys, SmileType } from "./types";
 
 const getOpenCellClassName = (cellType: NumberKeys) => {
   const obj = {
@@ -41,16 +41,16 @@ const getCellClassName = (
 
 interface CellProps {
   isOpened: boolean;
-  idx: [number, number];
-  clickCords: [number, number] | null;
+  idx: Coords;
+  clickCords: Coords | null;
   cellType: number;
   setSmileType: (type: SmileType) => void;
-  setclickCords: (idx: null | [number, number]) => void;
-  openField: (idx: [number, number], type: 0 | 1 | 2 | 3) => void;
+  setclickCoords: (idx: null | Coords) => void;
+  openField: (idx: Coords, type: FieldType) => void;
   isLosing: boolean;
   isFlag: boolean;
   isQuestion: boolean;
-  clickOnMine: (idx: [number, number]) => void;
+  clickOnMine: (idx: Coords) => void;
   isNotMine: boolean;
   isWin: boolean;
 }
@@ -61,7 +61,7 @@ export const Cell: FC<CellProps> = ({
   clickCords,
   cellType,
   setSmileType,
-  setclickCords,
+  setclickCoords,
   openField,
   isLosing,
   isNotMine,
@@ -72,13 +72,13 @@ export const Cell: FC<CellProps> = ({
 }) => {
   const onMouseDown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (!isLosing && !isWin && e.button === 0 && !isFlag && !isQuestion) {
-      setclickCords(idx);
+      setclickCoords(idx);
       setSmileType("scared");
     }
   };
   const onMouseUp = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (!isLosing && !isWin && e.button === 0 && !isFlag && !isQuestion) {
-      setclickCords(null);
+      setclickCoords(null);
       openField(idx, 1);
       if (cellType === 9) {
         clickOnMine(idx);
@@ -90,14 +90,14 @@ export const Cell: FC<CellProps> = ({
   };
   const onMouseOut = () => {
     if (!isLosing && !isWin) {
-      setclickCords(null);
+      setclickCoords(null);
       setSmileType("default");
     }
   };
   const onMouseOver = () => {
     if (!isLosing && !isWin) {
       if (clickCords) {
-        setclickCords(idx);
+        setclickCoords(idx);
         setSmileType("scared");
       }
     }

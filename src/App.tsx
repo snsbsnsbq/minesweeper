@@ -5,11 +5,11 @@ import { cellXAmount, cellYAmount, minesCount } from "./consts";
 import { Dial } from "./Dial";
 import { Smile } from "./Smile";
 import { Timer } from "./Timer";
-import { SmileType } from "./types";
+import { Coords, FieldType, SmileType } from "./types";
 import { genRandomMineField, getField, openCells, openFields } from "./utils";
 
 function App() {
-  const [clickCords, setclickCords] = useState<null | [number, number]>(null);
+  const [clickCords, setclickCoords] = useState<null | Coords>(null);
   const [smileType, setSmileType] = useState<SmileType>("default");
   const [matrix, setMatrix] = useState(getField(cellXAmount, cellYAmount));
   const [field, setField] = useState(getField(cellXAmount, cellYAmount));
@@ -19,21 +19,21 @@ function App() {
   const [isStarted, setStarted] = useState(false);
   const [isWin, setWin] = useState(false);
 
-  const openField = (idx: [number, number], type: 0 | 1 | 2 | 3) => {
+  const openField = (coords: Coords, type: FieldType) => {
     let localMatrix = matrix;
     if (!isStarted) {
       localMatrix = genRandomMineField(
         cellXAmount,
         cellYAmount,
         minesCount,
-        idx
+        coords
       );
       setStarted(true);
       setMatrix(localMatrix);
       setStartTime(new Date());
     }
-    const rowIdx = idx[0];
-    const colIdx = idx[1];
+    const rowIdx = coords[0];
+    const colIdx = coords[1];
     const newField = [...field];
     if (type === 1) {
       openCells(localMatrix, newField, [rowIdx, colIdx]);
@@ -43,13 +43,12 @@ function App() {
     setField(newField);
   };
 
-  const clickOnMine = (idx: [number, number]) => {
+  const clickOnMine = (coords: Coords) => {
     setLosing(true);
     setStarted(false);
-    const rowIdx = idx[0];
-    const colIdx = idx[1];
+    const rowIdx = coords[0];
+    const colIdx = coords[1];
     const newMatrix = [...matrix];
-    //мутация
     newMatrix[rowIdx][colIdx] = 10;
     setMatrix(newMatrix);
     setField(openFields(matrix, field));
@@ -110,7 +109,7 @@ function App() {
         <div
           className="field"
           onMouseOut={() => {
-            setclickCords(null);
+            setclickCoords(null);
           }}
         >
           {matrix.map((line, lineIndex) => {
@@ -122,7 +121,7 @@ function App() {
                 isNotMine={field[lineIndex][idx] === 4 ? true : false}
                 idx={[lineIndex, idx]}
                 clickCords={clickCords}
-                setclickCords={setclickCords}
+                setclickCoords={setclickCoords}
                 cellType={cellType}
                 setSmileType={setSmileType}
                 openField={openField}
