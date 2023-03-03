@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { SmileType } from "./types";
+import { SmileType } from "../types";
 
 interface SmileProps {
   type?: SmileType;

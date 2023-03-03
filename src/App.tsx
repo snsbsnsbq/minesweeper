@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import { Cell } from "./Cell";
+import { Cell } from "./ui/Cell";
 import { cellXAmount, cellYAmount, minesCount } from "./consts";
-import { Dial } from "./Dial";
-import { Smile } from "./Smile";
-import { Timer } from "./Timer";
+import { Dial } from "./ui/Dial";
+import { Smile } from "./ui/Smile";
+import { Timer } from "./ui/Timer";
 import { Coords, FieldType, SmileType } from "./types";
 import { genRandomMineField, getField, openCells, openFields } from "./utils";
 

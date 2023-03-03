@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { NumberKeys } from "./types";
+import { NumberKeys } from "../types";
 
 const getDialClassName = (value: NumberKeys) => {
   const obj = {

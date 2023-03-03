@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Coords, FieldType, NumberKeys, SmileType } from "./types";
+import { Coords, FieldType, NumberKeys, SmileType } from "../types";
 
 const getOpenCellClassName = (cellType: NumberKeys) => {
   const obj = {
